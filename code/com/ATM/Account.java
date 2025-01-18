@@ -29,7 +29,7 @@ public class Account {
     }
 
     public String getUserName() {
-        return userName;
+        return userName + (sex == '男' ? "先生" : "女士");
     }
 
     public void setUserName(String userName) {
