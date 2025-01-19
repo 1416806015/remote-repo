@@ -108,11 +108,17 @@ public class ATM {
                     return;  //跳出并结束当前方法
                 case 7:
                     //注销当前账户
+                    deleteAccount();
                     break;
                 default:
                     System.out.println("您当前选择的操作不存在，请确认~~~");
             }
         }
+    }
+
+    //注销账户
+    private void deleteAccount() {
+        System.out.println("====进行销户操作====");
     }
 
     //转账
