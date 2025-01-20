@@ -119,6 +119,7 @@ public class ATM {
     //注销账户
     private void deleteAccount() {
         System.out.println("====进行销户操作====");
+        // 1、询问用户是否注销
     }
 
     //转账
