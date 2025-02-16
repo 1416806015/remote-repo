@@ -198,3 +198,35 @@ Map<Integer, Integer>：声明一个 Map 类型的变量，键和值都是 Integ
          定义一个类变量记住类的一个对象
          定义一个类方法，返回对象
 ```
+
+## 13.多态
+
+<img src="docs/assets/polymorphism.png" title="" alt="" width="416">
+
+```java
+自动类型转换：父类 变量名 = new 子类();  People p = new Teacher();
+强制类型转换：父类 变量名 = (子类)父类变量; Teacher t = (Teacher)p; 
+```
+
+<img src="docs/assets/polymorphism2.png" title="" alt="" width="455">
+
+## 14.final
+
+###### final关键字是最终的意思，可以修饰(类、方法、变量)
+
+- 修饰类:该类被称为最终类，特点是不能被继承了
+
+- 修饰方法:该方法被称为最终方法，特点是不能被重写了。
+
+- 修饰变量:该变量只能被赋值一次。
+
+###### final修饰变量的注意
+
+- final修饰基本类型的变量，变量存储的数据不能被改变。
+
+- final修饰引用类型的变量，变量存储的地址不能被改变，
+  但地址所指向对象的内容是可以被改变的。
+
+## 15.常量
+
+<img src="docs/assets/constant.png" title="" alt="" width="363">
