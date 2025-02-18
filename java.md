@@ -230,3 +230,9 @@ Map<Integer, Integer>：声明一个 Map 类型的变量，键和值都是 Integ
 ## 15.常量
 
 <img src="docs/assets/constant.png" title="" alt="" width="363">
+
+## 抽象类（abstract)
+
+<img src="docs/assets/abstract.png" title="" alt="" width="430">
+
+<img src="docs/assets/abstract2.png" title="" alt="" width="376">
