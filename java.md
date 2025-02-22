@@ -231,8 +231,22 @@ Map<Integer, Integer>：声明一个 Map 类型的变量，键和值都是 Integ
 
 <img src="docs/assets/constant.png" title="" alt="" width="363">
 
-## 抽象类（abstract)
+## 16.抽象类（abstract)
 
 <img src="docs/assets/abstract.png" title="" alt="" width="430">
 
 <img src="docs/assets/abstract2.png" title="" alt="" width="376">
+
+## 17.接口
+
+```java
+public interface 接口名{
+    // 成员变量（常量）
+    // 成员方法（抽象方法）
+}
+// 接口的好处：
+// 弥补了类单继承的不足，一个类可以实现多个接口
+// 让程序可以面向接口编程，这样程序员就可以灵活方便的切换各种业务的实现。
+```
+
+![](docs/assets/implements.png)
