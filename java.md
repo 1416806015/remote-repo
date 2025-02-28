@@ -250,3 +250,7 @@ public interface 接口名{
 ```
 
 ![](docs/assets/implements.png)
+
+### 18.API
+
+#### Object
