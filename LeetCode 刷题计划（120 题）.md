@@ -12,9 +12,9 @@
 
 ### 1. 数组（20 题）
 
-- [ ] 两数之和（LeetCode 1）
-- [ ] 三数之和（LeetCode 15）
-- [ ] 最接近的三数之和（LeetCode 16）
+- [x] 两数之和（LeetCode 1）
+- [x] 三数之和（LeetCode 15）
+- [x] 最接近的三数之和（LeetCode 16）
 - [ ] 四数之和（LeetCode 18）
 - [ ] 移除元素（LeetCode 27）
 - [ ] 搜索插入位置（LeetCode 35）
