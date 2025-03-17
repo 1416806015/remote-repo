@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var age = 20;
+      var _age = "20";
+      var $age = 20;
+      alert(age == _age);
+      alert(age === _age);
+      alert(age == $age);
+
+      // 类型转换 - 其他类型转为数字
+      alert(parseInt("22")); //22
+      alert(parseInt("12Q34")); //12
+      alert(parseInt("A45")); //NaN(not a number)
+    </script>
+  </body>
+</html>

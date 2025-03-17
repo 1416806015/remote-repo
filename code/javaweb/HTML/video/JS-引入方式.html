@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>引入方式</title>
+    <!-- 内部脚本 -->
+    <!-- <scrip>
+        alert('Hello JS');
+    </script> -->
+    <!-- 外部脚本 -->
+    <!-- <script src="../js/demo.js"></script> -->
+  </head>
+  <body>
+    <script>
+      // 全局变量
+      {
+        var a = 1;
+      }
+      alert(a);
+      // 局部变量，不可重复定义
+      {
+        let x = 2;
+      }
+      alert(x);
+      // const：常量，不能改变
+      const pi = 3.14;
+      pi = 3.15;
+      alert(pi);
+    </script>
+  </body>
+</html>
