@@ -88,7 +88,6 @@ insert into employee(id, workno, name, gender, age, idcard, entrydate) values (1
 insert into employee values (2,'2','张无忌','男',18,'123456789012345670','2005-01-01');
 3.批量添加数据
 insert into employee values (2,'2','张无忌','男',18,'123456789012345670','2005-01-01'),(3,'3','韦一笑','男',38,'123455789012345670','2005-01-01');
-
 ```
 
 ### 修改数据
@@ -342,7 +341,6 @@ select name, datediff(curdate(),entrydate) as 'entrydays' from emp order by entr
 ![](docs/assets/hs4.png)
 
 ```sql
-
 --  案例：统计班级各个学员的成绩，展示的规则如下：
 --  =85，展示优秀
 --  >=60，展示及格
@@ -360,11 +358,7 @@ from score;
 
 ![](docs/assets/hs.png)
 
-
-
 # 约束
-
-![](docs/assets/ys.png)
 
 案例：
 
@@ -388,5 +382,159 @@ insert  into user( name, age, status, gender) values (null,78,'1','男');
 insert  into user( name, age, status, gender) values ('Tom5',-1,'1','男');
 insert  into user( name, age, status, gender) values ('Tom5',121,'1','男');
 insert  into user( name, age, gender) values ('Tom5',120,'男');
-
 ```
+
+## 外键约束
+
+![](docs/assets/ys2.png)
+
+![](docs/assets/ys3.png)
+
+```sql
+-- 添加外键
+alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept(id);
+
+-- 删除外键
+alter table emp drop foreign key fk_emp_dept_id; 
+```
+
+![](docs/assets/ys4.png)
+
+![](docs/assets/ys5.png)
+
+```sql
+-- 外键的删除和更新行为
+alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept(id) on update  cascade  on delete  cascade ;
+alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept(id) on update  set null  on delete  set null ;
+```
+
+## 小结
+
+![](docs/assets/ys.png)
+
+# 多表查询
+
+```sql
+-- 多表查询
+select * from emp ,dept where emp.dept_id = dept.id;
+```
+
+![](docs/assets/lj1.png)
+
+## 内连接
+
+```sql
+-- 内连接演示
+-- 1，查询每一个员工的姓名，及关联的部门的名称（隐式内连接实现）
+-- 表结构: emp , dept
+-- 连接条件 emp.dept_id = dept.id
+select emp.name ,dept.name from emp , dept where emp.dept_id = dept.id;
+-- 给emp和dept分别取别名 e d
+select  e.name, d.name from emp e ,dept d where e.dept_id = d.id;
+
+-- 2、查询每一个员工的姓名，及关联的部门的名称（显式内连接实现） --- INNE JOIN ... ON ...
+-- 表结构: emp , dept
+-- 连接条件 emp.dept_id = dept.id
+select e.name,d.name from emp e inner join dept d on e.dept_id = d.id;
+```
+
+## 外连接
+
+![](docs/assets/lj2.png)
+
+```sql
+-- 外连接演示
+-- 1.查询emp表的断有数据，和对应的部门信息（左外连接）
+-- 表结构: emp , dept
+-- 连接条件 emp.dept_id = dept.id
+select e.*, d.name from emp e left outer join dept d on e.dept_id = d.id;
+select e.*, d.name from emp e left  join dept d on e.dept_id = d.id;
+-- 2.查询dept表的所有数据，和对应的员工信息（右外连接）
+select d.*, e.* from emp e right  outer join dept d on e.dept_id = d.id;
+```
+
+## 自连接
+
+![](docs/assets/lj3.png)
+
+```sql
+-- 自连接
+-- 1．查询员工及其所属领导的名字
+-- 表结构： emp
+select a.name , b.name from emp a ,emp b where a.managerid = b.id;
+-- 2．查询所有员工emp及其领导的名字emp，如果员工没有领导，也需要查询出来
+-- 表结构： emp a ,emp b
+select a.name '员工' , b.name '领导' from emp a left join emp b on a.managerid = b.id;
+```
+
+## 联合查询 union
+
+![](docs/assets/lj4.png)
+
+```sql
+-- union all,union
+-- 1，将薪资低于5000的员工，和年龄大于50岁的员工全部查询出来。
+select * from emp where salary < 5000
+union all
+select * from emp where age >50 ;
+-- 删掉all 可以达到去重的效果
+select * from emp where salary < 5000
+union
+select * from emp where age >50;
+```
+
+## 子查询
+
+![](docs/assets/cx1.png)
+
+### 标量子查询
+
+![](docs/assets/cx2.png)
+
+```sql
+-- 标量子查询
+-- 1．查询『销售部"的所有员工信息
+-- a. 查询“销售部” 部门的ID
+select id from dept where name = '销售部';
+-- b.根据销售部部门ID，查询员工信息
+select * from emp where dept_id = (select id from dept where name = '销售部');
+
+-- 2．查询在"方东白"入职之后的员工信息
+-- a，查询方东白的入职日期
+select entrydate from emp where name = '方东白';
+-- b，查询指定入职日期之后入职的员工信息
+select * from emp where entrydate > (select entrydate from emp where name = '方东白');
+```
+
+### 列子查询
+
+![](docs/assets/cx3.png)
+
+```sql
+-- 列子查询
+-- 1．查询"销售部"和"市场部"的所有员工信息
+-- a.查询"销售部"和"市场部"的部门ID
+select id from dept where name = '销售部' or name = '市场部';
+-- b.根据部门ID，查询员工信息
+select * from emp where dept_id in (select id from dept where name = '销售部' or name = '市场部');
+-- 2，查询比财务部所有人工资都高的员工信息
+-- a.查询所有财务部人员工资
+select id from dept where name = '财务部';
+select emp.salary from emp where dept_id = (select id from dept where name = '财务部');
+-- b.比财务部所有人工资都高的员工信息
+select  * from emp where salary > all (select salary from emp where dept_id = (select id from dept where name = '财务部'));
+
+-- 3，查询比研发部其中任意一人工资高的员工信息
+-- α，查询研发部所有人工资
+select id from dept where name = '研发部';
+select emp.salary from emp where dept_id = (select id from dept where name = '研发部');
+-- b，比研发部其中任意一人工资高的员工信息
+select * from emp where salary > any (select emp.salary from emp where dept_id = (select id from dept where name = '研发部'));
+select * from emp where salary > some (select emp.salary from emp where dept_id = (select id from dept where name = '研发部'));
+-- 查询比研发部最高工资还要高的员工信息
+-- 研发部最高工资
+select max(salary) from emp where dept_id = (select id from dept where name = '研发部');
+select * from emp where salary > all (select max(salary) from emp where dept_id = (select id from dept where name = '研发部'));
+```
+
+### 行子查询
