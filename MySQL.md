@@ -549,3 +549,38 @@ select salary , managerid from emp where name = '张无忌';
 -- b，查询与"张无忌"的薪资及直属领导相同的员工信息；
 select * from emp where (salary , managerid) = (select salary , managerid from emp where name = '张无忌');
 ```
+
+### 表子查询
+
+![](docs/assets/cx.png)
+
+```sql
+-- 表子查询
+-- 1.查询与"鹿杖客"，"宋远桥"的职位和薪资相同的员工信息
+-- α.查询"鹿杖客"，"宋远桥"的职位和薪资
+select job,salary from emp where name = '鹿杖客' or name = '宋远桥';
+-- b．查询与"鹿杖客"，"宋远桥"的职位和薪资相同的员工信息
+select * from emp where (job, salary) in (select job,salary from emp where name = '鹿杖客' or name = '宋远桥');
+-- 2．查询入职日期是"2006-01-01"之后的员工信息，及其部门信息
+select * from emp where entrydate > '2006-01-01';
+select e.*,d.name from (select * from emp where entrydate > '2006-01-01') e left join dept d on e.dept_id = d.id ;
+```
+
+练习
+
+```sql
+1.查询员工的姓名、年龄、职位、部门信息。
+2、查询年龄小于30岁的员工姓名、年龄、职位、部门信息。
+3.查询拥有员工的部门ID、部门名称。
+4.查询所有年龄大于40岁的员工，及其归属的部门名称；如果员工没有分配部门，也需要展示出来。
+5.查询所有员工的工资等级。
+6.查询"研发部"所有员工的信息及工资等级。
+7.查询“研发部”员工的平均工资。
+8.查询工资比"灭绝"高的员工信息。
+9.查询比平均薪资高的员工信息。
+10.查询低于本部门平均工资的员工信息。
+11．查询所有的部门信息，并统计部门的员工人数。
+12.查询所有学生的选课情况，展示出学生名称，学号，课程名称
+
+
+```
