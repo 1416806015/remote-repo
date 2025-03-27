@@ -569,8 +569,14 @@ select e.*,d.name from (select * from emp where entrydate > '2006-01-01') e left
 练习
 
 ```sql
-1.查询员工的姓名、年龄、职位、部门信息。
-2、查询年龄小于30岁的员工姓名、年龄、职位、部门信息。
+-- 1.查询员工的姓名、年龄、职位、部门信息。（隐式内连接）
+-- 表:emp，dept
+-- 连接条件:emp.dept_id =dept.id
+select e.name, e.age, e.job, d.name from emp e, dept d where e.dept_id = d.id;
+-- 2、查询年龄小于30岁的员工姓名、年龄、职位、部门信息。（显式内连接）
+-- 表:emp，dept
+-- 连接条件：emp.dept_id=dept.id
+select e.name, e.age, e.job, d.name from emp e inner join dept d on e.dept_id = d.id where e.age < 30;
 3.查询拥有员工的部门ID、部门名称。
 4.查询所有年龄大于40岁的员工，及其归属的部门名称；如果员工没有分配部门，也需要展示出来。
 5.查询所有员工的工资等级。
@@ -584,3 +590,9 @@ select e.*,d.name from (select * from emp where entrydate > '2006-01-01') e left
 
 
 ```
+
+# 事务
+
+## 四大特性
+
+![](docs/assets/sw.png)
