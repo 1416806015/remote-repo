@@ -587,8 +587,6 @@ select e.name, e.age, e.job, d.name from emp e inner join dept d on e.dept_id = 
 10.查询低于本部门平均工资的员工信息。
 11．查询所有的部门信息，并统计部门的员工人数。
 12.查询所有学生的选课情况，展示出学生名称，学号，课程名称
-
-
 ```
 
 # 事务
