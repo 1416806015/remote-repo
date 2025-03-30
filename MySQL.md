@@ -595,7 +595,10 @@ select e.* , s.grade from emp e , salgrade s where e.salary >= s.losal and e.sal
 -- 连接条件:emp.salary betweensalgrade.Losal and salgrade.hisal, emp.dept_id = dept.id
 -- 查询条件：dept.name = 研发部
 select * from emp e , dept d, salgrade s where e.dept_id = d.id and ( e.salary between s.losal and s.hisal ) and d.name= '研发部';
-7.查询“研发部”员工的平均工资。
+-- 7.查询“研发部”员工的平均工资。
+-- 表:emp，dept
+-- 连接条件： emp.dept_id=dept.id
+select avg(e.salary) from emp e, dept d where e.dept_id = d.id and d.name = '研发部';
 8.查询工资比"灭绝"高的员工信息。
 9.查询比平均薪资高的员工信息。
 10.查询低于本部门平均工资的员工信息。
