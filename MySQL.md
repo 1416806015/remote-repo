@@ -600,10 +600,14 @@ select * from emp e , dept d, salgrade s where e.dept_id = d.id and ( e.salary b
 -- 连接条件： emp.dept_id=dept.id
 select avg(e.salary) from emp e, dept d where e.dept_id = d.id and d.name = '研发部';
 8.查询工资比"灭绝"高的员工信息。
+-- α.查询"灭绝"的薪资
+select salary from emp where name = '灭绝';
+-- b，查询比她工资高的员工数据
+select * from emp where salary >(select salary from emp where name = '灭绝');
 9.查询比平均薪资高的员工信息。
 10.查询低于本部门平均工资的员工信息。
 11．查询所有的部门信息，并统计部门的员工人数。
-12.查询所有学生的选课情况，展示出学生名称，学号，课程名称
+12.查询所有学生的选课情况，展示出学生名称，学号，课程名称。
 ```
 
 # 事务
