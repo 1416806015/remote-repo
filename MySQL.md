@@ -301,7 +301,7 @@ revoke all on itcast.* from 'heima'@'%';
 ![](docs/assets/hs1.png)
 
 ```sql
--- ------------------------函数演示---------------------------------
+-- ------------------------------函数演示---------------------------------
 -- concat
 select concat('Hello', ' MySQL');
 -- lower
@@ -392,7 +392,7 @@ insert  into user( name, age, gender) values ('Tom5',120,'男');
 
 ```sql
 -- 添加外键
-alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept(id);
+alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept(id); 
 
 -- 删除外键
 alter table emp drop foreign key fk_emp_dept_id; 
@@ -419,6 +419,8 @@ alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references d
 select * from emp ,dept where emp.dept_id = dept.id;
 ```
 
+### 去重 (distinct)
+
 ![](docs/assets/lj1.png)
 
 ## 内连接
@@ -432,8 +434,8 @@ select emp.name ,dept.name from emp , dept where emp.dept_id = dept.id;
 -- 给emp和dept分别取别名 e d
 select  e.name, d.name from emp e ,dept d where e.dept_id = d.id;
 
--- 2、查询每一个员工的姓名，及关联的部门的名称（显式内连接实现） --- INNE JOIN ... ON ...
--- 表结构: emp , dept
+-- 2、查询每一个员工的姓名，及关联的部门的名称（显式内连接实现） --- INNER JOIN ... ON ...
+-- 表结构: emp , dept 
 -- 连接条件 emp.dept_id = dept.id
 select e.name,d.name from emp e inner join dept d on e.dept_id = d.id;
 ```
@@ -566,49 +568,84 @@ select * from emp where entrydate > '2006-01-01';
 select e.*,d.name from (select * from emp where entrydate > '2006-01-01') e left join dept d on e.dept_id = d.id ;
 ```
 
-练习
+# 练习~~
 
 ```sql
--- 1.查询员工的姓名、年龄、职位、部门信息。（隐式内连接）
+内连接
+1.查询员工的姓名、年龄、职位、部门信息。（隐式内连接）
 -- 表:emp，dept
 -- 连接条件:emp.dept_id =dept.id
 select e.name, e.age, e.job, d.name from emp e, dept d where e.dept_id = d.id;
--- 2、查询年龄小于30岁的员工姓名、年龄、职位、部门信息。（显式内连接）
+
+2、查询年龄小于30岁的员工姓名、年龄、职位、部门信息。（显式内连接）
 -- 表:emp，dept
 -- 连接条件：emp.dept_id=dept.id
 select e.name, e.age, e.job, d.name from emp e inner join dept d on e.dept_id = d.id where e.age < 30;
--- 3.查询拥有员工的部门ID、部门名称。
+
+3.查询拥有员工的部门ID、部门名称。
 -- 表:emp，dept
 -- 连接条件：emp.dept_id=dept.id
 select distinct d.id, d.name from emp e , dept d where e.dept_id = d.id;
--- 4.查询所有年龄大于40岁的员工，及其归属的部门名称；如果员工没有分配部门，也需要展示出来。
+
+外连接 
+4.查询所有年龄大于40岁的员工，及其归属的部门名称；如果员工没有分配部门，也需要展示出来。
 -- 表:emp，dept
 -- 连接条件：emp.dept_id= dept.id
 -- 外连接
 select e.*,d.name from emp e left join dept d on e.dept_id = d.id where e.age > 40;
--- 5.查询所有员工的工资等级。
+
+5.查询所有员工的工资等级。
 -- 表:emp，salgrade
 -- 连接条件：emp.salary >= salgrade.Losaland emp.salary <= salgrade.hisal
 select e.* , s.grade from emp e , salgrade s where e.salary >= s.losal and e.salary <= s.hisal;
--- 6.查询"研发部"所有员工的信息及工资等级。
+
+6.查询"研发部"所有员工的信息及工资等级。
 -- 表:emp,salgrade,dept
 -- 连接条件:emp.salary betweensalgrade.Losal and salgrade.hisal, emp.dept_id = dept.id
 -- 查询条件：dept.name = 研发部
 select * from emp e , dept d, salgrade s where e.dept_id = d.id and ( e.salary between s.losal and s.hisal ) and d.name= '研发部';
--- 7.查询“研发部”员工的平均工资。
+
+7.查询“研发部”员工的平均工资。
 -- 表:emp，dept
 -- 连接条件： emp.dept_id=dept.id
 select avg(e.salary) from emp e, dept d where e.dept_id = d.id and d.name = '研发部';
+
 8.查询工资比"灭绝"高的员工信息。
 -- α.查询"灭绝"的薪资
 select salary from emp where name = '灭绝';
 -- b，查询比她工资高的员工数据
 select * from emp where salary >(select salary from emp where name = '灭绝');
+
 9.查询比平均薪资高的员工信息。
+-- a.查询员工的平均薪资
+select avg(salary) from emp ;
+-- b.查询比平均薪资高的员工信息。
+select * from emp e where e.salary > (select avg(salary) from emp);
+
 10.查询低于本部门平均工资的员工信息。
+-- a.查询指定部门的平均薪资 1
+select avg(salary) from emp e where e.dept_id = 1;
+-- b.查询低于本部门平均工资的员工信息。
+select *,(select avg(e1.salary) from emp e1 where e1.dept_id = e2.dept_id) '平均' from emp e2 where e2.salary < (select avg(e1.salary) from emp e1 where e1.dept_id = e2.dept_id);
+
 11．查询所有的部门信息，并统计部门的员工人数。
-12.查询所有学生的选课情况，展示出学生名称，学号，课程名称。
+-- a.查询所有的部门信息
+select id,name from dept;
+-- b.查询指定部门的员工人数 1
+select count(*) from emp where dept_id = 1;
+-- b.并统计部门的员工人数。
+select d.id,d.name ,(select count(*) from emp e where e.dept_id = d.id) '人数' from dept d ;
+
+多表联查
+12.查询所有学生的选课情况，展示出学生名称，学号，课程名称
+-- 表：student, course, student_course
+-- 连接条件:student.id = student_course.studentid , course.id = student_course.courseid
+select s.name,s.no,c.name from student s , student_course sc , course c where s.id = sc.studentid and sc.studentid = c.id;
 ```
+
+## 小结
+
+![](docs/assets/cx5.png)
 
 # 事务
 

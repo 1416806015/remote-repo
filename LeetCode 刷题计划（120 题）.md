@@ -15,8 +15,8 @@
 - [x] 两数之和（LeetCode 1）
 - [x] 三数之和（LeetCode 15）
 - [x] 最接近的三数之和（LeetCode 16）
-- [ ] 四数之和（LeetCode 18）
-- [ ] 移除元素（LeetCode 27）
+- [x] 四数之和（LeetCode 18）
+- [x] 移除元素（LeetCode 27）
 - [ ] 搜索插入位置（LeetCode 35）
 - [ ] 最大子数组和（LeetCode 53）
 - [ ] 合并区间（LeetCode 56）
