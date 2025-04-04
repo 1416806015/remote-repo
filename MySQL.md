@@ -653,4 +653,21 @@ select s.name,s.no,c.name from student s , student_course sc , course c where s.
 
 ![](docs/assets/sw.png)
 
-1
+```scss
+-- ------------------------事务操作---------------------------------
+-- 数据准备
+create table account (
+    id int auto_increment primary key comment '主键ID',
+    name varchar(10) comment '姓名',
+    money int comment '余额'
+) comment '账户表';
+
+insert into account(id, name, money) values
+(null,'张三',2000),
+(null,'李四',2000);
+
+-- 恢复数据
+update account set money = 2000 where name = '张三' or name = '李四';
+```
+
+11
