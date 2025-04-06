@@ -186,7 +186,7 @@ select min(age) from emp;
 select sum(age) from emp where workaddress = '西安';
 ```
 
-## 分组查询
+## 分组查询(group by)
 
 ![](docs/assets/ddl15.png)
 
@@ -201,7 +201,7 @@ select workaddress, count(*) from emp where age < 45 group by workaddress having
 select workaddress, count(*) address_count from emp where age < 45 group by workaddress having address_count >= 3;
 ```
 
-## 排序查询
+## 排序查询(order by)
 
 ![](docs/assets/ddl16.png)
 
@@ -218,7 +218,7 @@ select * from emp order by age asc ,entrydate desc ;
 select * from emp order by age asc ,entrydate asc ;
 ```
 
-## 分页查询
+## 分页查询(limit)
 
 ![](docs/assets/ddl17.png)
 
