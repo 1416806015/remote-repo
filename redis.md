@@ -53,7 +53,7 @@ redis-cli [options] [commonds]
 
 [reids命令](https://redis.io/commands)
 
-# Redis String 类型操作命令
+# Redis数据类型
 
 ## 基本类型
 
@@ -85,8 +85,6 @@ set heima:product:1 '{"id":1, "name":"小米11", "price": 4999}'
 
 ### Hash
 
-# Redis Hash 类型操作命令
-
 ● ​**​HSET key field value​**​：添加或者修改hash类型key的field的值
 
 ● ​**​HGET key field​**​：获取一个hash类型key的field的值
@@ -107,13 +105,11 @@ set heima:product:1 '{"id":1, "name":"小米11", "price": 4999}'
 
 ### List
 
-# Redis 列表(List)操作命令
-
 ● ​**​LPUSH key element [element...]​**​：向列表左侧插入一个或多个元素
 
-● ​**​LPOP key​**​：移除并返回列表左侧的第一个元素，没有则返回nil
-
 ● ​**​RPUSH key element [element...]​**​ ：向列表右侧插入一个或多个元素
+
+● ​**​LPOP key​**​：移除并返回列表左侧的第一个元素，没有则返回nil
 
 ● ​**​RPOP key​**​：移除并返回列表右侧的第一个元素
 
@@ -127,14 +123,195 @@ set heima:product:1 '{"id":1, "name":"小米11", "price": 4999}'
 
 ### Set
 
+● ​**​SADD key member [member...]​**​：向set集合中添加一个或多个元素
+
+● ​**​SREM key member [member...]​**​：从set集合中移除指定的元素
+
+● ​**​SCARD key​**​：获取set集合中元素的数量
+
+● ​**​SISMEMBER key member​**​：判断指定元素是否存在于set集合中  
+（存在返回1，不存在返回0）
+
+● ​**​SMEMBERS key​**​：获取set集合中的所有元素
+
+● ​**​SINTER key [key...]​**​：返回给定所有集合的交集  `示例：SINTER set1 set2`
+
+● ​**​SDIFF key [key...]​**​：返回第一个集合与其他集合的差集  `示例：SDIFF set1 set2`
+
+● ​**​SUNION key [key...]​**​：返回所有给定集合的并集  `示例：SUNION set1 set2`
+
+```shell
+需求：
+1.将下列数据用Redis的Set集合来存储：
+    张三的好友有：李四、王五、赵六
+    李四的好友有：王五、麻子、二狗
+2.利用Set的命令实现下列功能：
+    计算张三的好友有几人
+    计算张三和李四有哪些共同好友
+    查询哪些人是张三的好友却不是李四的好友
+    查询张三和李四的好友总共有哪些人
+    判断李四是否是张三的好友
+    判断张三是否是李四的好友
+    将李四从张三的好友列表中移除
+练习：
+127.0.0.1:6379> sadd zs lisi wangwu zhaoliu
+(integer) 3
+127.0.0.1:6379> sadd ls wangwu mazi ergou
+(integer) 3
+127.0.0.1:6379> SCARD zs
+(integer) 3
+127.0.0.1:6379> sinter zs ls
+1) "wangwu"
+127.0.0.1:6379> sdiff zs ls
+1) "lisi"
+2) "zhaoliu"
+127.0.0.1:6379> SUNION zs ls
+1) "wangwu"
+2) "zhaoliu"
+3) "ergou"
+4) "lisi"
+5) "mazi"
+127.0.0.1:6379> SISMEMBER zs lisi
+(integer) 1
+127.0.0.1:6379> SISMEMBER ls zhangsan
+(integer) 0
+127.0.0.1:6379> SREM zs lisi
+(integer) 1
+127.0.0.1:6379> SMEMBERS zs
+1) "wangwu"
+2) "zhaoliu"
+```
+
 ### SortedSet
 
-## 特殊类型
+● ​**​ZADD key score member [score member...]​**​：添加或更新有序集合中的元素及其分数 
+`示例：ZADD players 1000 "player1"`
 
-### GEO
+● ​**​ZREM key member [member...]​**​：删除有序集合中的指定元素  
+`示例：ZREM players "player1"`
 
-### BitMap
+● ​**​ZSCORE key member​**​：获取指定元素的分数值  
+`示例：ZSCORE players "player1"`
 
-### HyperLog
+● ​**​ZRANK key member​**​：获取指定元素的排名（升序，从0开始）  
+`示例：ZRANK players "player1"`
+
+● ​**​ZCARD key​**​：获取有序集合的元素数量  
+`示例：ZCARD players`
+
+● ​**​ZCOUNT key min max​**​：统计分数在[min,max]范围内的元素数量  
+`示例：ZCOUNT players 800 1200`
+
+● ​**​ZINCRBY key increment member​**​：为指定元素增加分数  
+`示例：ZINCRBY players 50 "player1"`
+
+● ​**​ZRANGE key start stop [WITHSCORES]​**​：获取排名范围内的元素（升序）  
+`示例：ZRANGE players 0 2 WITHSCORES`
+
+● ​**​ZRANGEBYSCORE key min max [WITHSCORES]​**​：获取分数范围内的元素（升序）  
+`示例：ZRANGEBYSCORE players 800 1200`
+
+● ​**​ZDIFF/ZINTER/ZUNION numkeys key [key...]​**​：集合运算（差集/交集/并集）  
+`示例：ZINTER 2 set1 set2 WEIGHTS 2 3`
+
+        **注意**：所有的排名默认都是升序，如果要降序则在命令的Z后面添加REV即可
+
+```shell
+将班级的下列学生得分存入Redis的SortedSet中：
+Jack 85, Lucy 89, Rose 82, Tom 95, Jerry 78, Amy 92, Miles 76
+·并实现下列功能：
+·删除Tom同学
+·获取Amy同学的分数
+·获取Rose同学的排名
+·查询80分以下有几个学生
+·给Amy同学加2分
+·查出成绩前3名的同学
+·查出成绩80分以下的所有同学
+127.0.0.1:6379> zadd stus 85 jack 89 lucy 82 rose 95 tom 78 jerry 92 amy 76 miles
+(integer) 7
+127.0.0.1:6379> ZREM stus tom
+(integer) 1
+127.0.0.1:6379> Zrank stus rose
+(integer) 2
+127.0.0.1:6379> zrevrank  stus rose
+(integer) 3
+127.0.0.1:6379> ZCARD stus
+(integer) 6
+127.0.0.1:6379> zcount stus 0 80
+(integer) 2
+127.0.0.1:6379> ZINCRBY stus 2 amy
+"94"
+127.0.0.1:6379> zrevrange stus 0 2 
+1) "amy"
+2) "lucy"
+3) "jack"
+127.0.0.1:6379> ZRANGEBYSCORE stus 0 80
+1) "miles"
+2) "jerry"
+```
+
+# Jedis使用的基本步骤
+
+```java
+1.引入依赖
+2.创建Jedis对象，建立连接
+3.使用Jedis，方法名与Redis命令一致
+4.释放资源
+```
+
+```xml
+1.引入依赖
+  <!--Jedis-->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+    <!--单元测试-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+```
+
+```java
+2.创建Jedis对象，建立连接
+public class JedisTest {
+    private Jedis jedis;
+
+@BeforeEach
+    public void setUp() throws Exception {
+        // 1.建立连接
+        jedis = new Jedis("192.168.109.150", 6379);
+        // 2.设置密码
+        jedis.auth("123456");
+        // 3.选择库
+        jedis.select(0);
+    }
+3.使用Jedis，方法名与Redis命令一致
+ @Test
+    void testString() {
+        // 存入数据
+        String result = jedis.set("name", "胡歌");
+        System.out.println("result = " + result);
+        // 获取数据
+        String name = jedis.get("name");
+        System.out.println("name = " + name);
+    }
+
+    @Test
+    void testHash() {
+        // 存入hash数据
+        jedis.hset("user:1", "name", "jack");
+        jedis.hset("user:1", "age", "21");
+        // 获取数据
+        Map<String, String> map = jedis.hgetAll("user:1");
+        System.out.println("map = " + m
+ap);
+    }
+4.释放连接
+```
 
 
