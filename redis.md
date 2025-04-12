@@ -312,6 +312,97 @@ public class JedisTest {
 ap);
     }
 4.释放连接
+@AfterEach
+void tearDown(){
+    if (jedis != null){
+        jedis.close();
+    }
+}
+```
+
+# Spring Data Redis
+
+![](docs/assets/rs3.png)
+
+## 1.引入依赖
+
+```xml
+<!-- Redis 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- common-pool -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+```
+
+## 2.配置文件
+
+```yaml
+# 应用配置
+spring.application.name=redis_demo1
+server.port=8080
+
+# Redis 配置
+spring.data.redis.host=192.168.109.150
+spring.data.redis.port=6379
+spring.data.redis.password=123456
+spring.data.redis.database=0
+
+# 连接池优化
+spring.data.redis.lettuce.pool.max-active=8
+spring.data.redis.lettuce.pool.max-idle=8
+spring.data.redis.lettuce.pool.min-idle=0
+spring.data.redis.lettuce.pool.max-wait=100ms
+```
+
+## 3.注入RedisTamplate
+
+```java
+@Autowired
+    private RedisTemplate redisTemplate;
+```
+
+## 4.编写测试
+
+```java
+@Autowired
+    private RedisTemplate<String,Object> redisTemplate;
+
+    @Test
+    void testString() {
+        // 写入一条String数据
+        redisTemplate.opsForValue().set("name", "虎哥");
+        // 获取string数据
+        Object name = redisTemplate.opsForValue().get("name");
+        System.out.println("name = " + name);
+    }
+```
+
+# StringRedisTemplate
+
+`Spring`默认提供了一个**StringRedisTemplate**类，它的`key`和`value`的序列化方式默认就是`String`方式。省去了我们自定义`RedisTemplate`的过程：
+
+```java
+ // JSON 处理工具
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    @Test
+    void testSaveUser() throws JsonProcessingException {
+        // 创建对象
+        User user = new User("虎哥", 21);
+        // 手动序列化
+        String json = mapper.writeValueAsString(user);
+        // 写入数据
+        stringRedisTemplate.opsForValue().set("user:200", json);
+        String jsonUser = stringRedisTemplate.opsForValue().get("user:200");
+        // 手动序列化
+        User user1 = mapper.readValue(jsonUser, User.class);
+        System.out.println("user1 = " + user1);
+    }
 ```
 
 
