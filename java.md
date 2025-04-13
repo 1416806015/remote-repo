@@ -251,8 +251,8 @@ public interface 接口名{
 
 ![](docs/assets/implements.png)
 
-### 18.API
+### 18.枚举（Enumeration）
 
-#### Object
+是一种特殊的数据类型，用于定义一组​**​命名的常量集合​**​。
 
-#### Objects
+![](docs/assets/mj.png)
