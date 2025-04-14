@@ -404,5 +404,3 @@ spring.data.redis.lettuce.pool.max-wait=100ms
         System.out.println("user1 = " + user1);
     }
 ```
-
-
