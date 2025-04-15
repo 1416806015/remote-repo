@@ -256,3 +256,11 @@ public interface 接口名{
 是一种特殊的数据类型，用于定义一组​**​命名的常量集合​**​。
 
 ![](docs/assets/mj.png)
+
+# 泛型
+
+![](docs/assets/fx.png)
+
+![](docs/assets/fx2.png)
+
+![](docs/assets/fx3.png)
