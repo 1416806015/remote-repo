@@ -1,7 +1,7 @@
-package d37_date;
+package d40_time;
 
 public class Test {
     public static void main(String[] args) {
-        System.out.println("Date");
+        Data data = new Data();
     }
 }
