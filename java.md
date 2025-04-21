@@ -285,4 +285,8 @@ public interface 接口名{
 
 - **public void setTime(long time)** 设置日期对象的时间为当前时间毫秒值对应的时间。
 
- 
+![](docs/assets/sj.png)
+
+- **public Date parse(String source)** 把字符串时间解析成日期时间
+
+- 
