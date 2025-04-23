@@ -289,4 +289,16 @@ public interface 接口名{
 
 - **public Date parse(String source)** 把字符串时间解析成日期时间
 
-- 
+## Calendar
+
+- **public static Calendar getInstance()**     获取当前日历对象
+
+- **public int get(int field)**  获取日历中的某个信息
+
+- **public final Date getTime()** 获取日期对象
+
+- **public long getTimeInMillis()** 获取时间毫秒值
+
+- **public void set(int field,int value)**  修改日历的某个信息
+
+- **public void add(int field,int amount)**  为某个信息增加/减少指定的值
