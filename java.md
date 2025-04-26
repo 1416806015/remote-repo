@@ -303,6 +303,68 @@ public interface 接口名{
 
 - **public void add(int field,int amount)**  为某个信息增加/减少指定的值
 
-### JDK8_Time
+## JDK8_Time
 
-![](docs/assets/jdk.png)
+![](docs/assets/sj6.png)
+
+![](docs/assets/sj1.png)
+
+### LocalDate
+
+![](docs/assets/sj2.png)
+
+### LocalTime
+
+![](docs/assets/sj3.png)
+
+### LocalDateTime
+
+![](docs/assets/sj4.png)
+
+### ZoneId
+
+![](docs/assets/sj5.png)
+
+### DateTimeFormatter
+
+- **public static DateTimeFormatter ofPatten(时间格式)**      获取格式化器对象
+
+- **public String format(时间对象)**    格式化时间
+
+### Period
+
+![](docs/assets/sj7.png)
+
+### Duration
+
+![](docs/assets/sj8.png)
+
+### Arrays
+
+![](docs/assets/sj9.png)
+
+![](docs/assets/sj10.png)
+
+### Lambda表达式
+
+![](docs/assets/lb1.png)
+
+### 方法引用
+
+#### 静态方法的引用
+
+- **类名::静态方法**    
+  
+  使用场景：如果某个Lambda表达式里只是调用一个静态方法，并且前后参数的形式一致，就可以使用静态方法引用。
+
+#### 实例方法的引用
+
+- **对象名:实例方法**    
+  
+  使用场景：如果某个Lambda表达式里只是调用一个实例方法，并且前后参数的形式一致，就可以使用实例方法引用
+
+#### 特定类型的方法引用
+
+- **类型:方法**    
+  
+  使用场景：如果某个Lambda表达式里只是调用一个实例方法，并且前面参数列表中的第一个参数是作为方法的主调，后面的所有参数都是作为该实例方法的入参的，则此时就可以使用特定类型的方法引用。  
