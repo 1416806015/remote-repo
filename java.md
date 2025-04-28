@@ -408,6 +408,66 @@ try{
 
 # 集合
 
-## 单列集合
+## 单列集合  Collection
 
 ![](docs/assets/jh.png)
+
+# 
+
+![](docs/assets/jh1.png)
+
+### 迭代器
+
+```java
+Collection<String> c = new ArrayList<>();
+        c.add("小米");
+        c.add("上课");
+// 1、从集合对象中获取迭代器对象
+        Iterator<String> it = c.iterator();
+// 2、使用循环结合迭代器遍历
+        while (it.hasNext()) {
+            String ele = it.next();
+            System.out.println(ele);
+        }
+```
+
+### 增强for循环
+
+```java
+for (元素的数据类型 变量名:数组或者集合){...}
+```
+
+## List
+
+![](docs/assets/jh2.png)
+
+### LinkedList
+
+## Set
+
+### TreeSet
+
+![](docs/assets/st.png)
+
+```java
+方法一： 
+public class Student implements Comparable<Student> {
+     // this o  
+    @Override
+    public int compareTo(Student o) {
+        return this.age - o.age;  // 按年龄升序排序
+    }
+}
+方法二：
+ Set<Student> students = new TreeSet<>(new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                // 按照升高升序排序
+                return Double.compare(o1.getHeight(), o2.getHeight());
+            }
+        });
+```
+
+## 小结
+
+![](docs/assets/xj.png)
