@@ -412,8 +412,6 @@ try{
 
 ![](docs/assets/jh.png)
 
-# 
-
 ![](docs/assets/jh1.png)
 
 ### 迭代器
@@ -471,3 +469,25 @@ public class Student implements Comparable<Student> {
 ## 小结
 
 ![](docs/assets/xj.png)
+
+## Collections
+
+用来操作集合的工具类
+
+![](docs/assets/jh3.png)
+
+## 双列集合 Map
+
+![](docs/assets/mp.png)
+
+### 常用方法
+
+![](docs/assets/mp1.png)
+
+### Lambda遍历Map
+
+```java
+map.forEach((k,v)->{
+    System.sout.println(k + "-->" + v );
+});
+```
