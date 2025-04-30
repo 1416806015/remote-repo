@@ -466,7 +466,7 @@ public class Student implements Comparable<Student> {
         });
 ```
 
-## 小结
+### 小结
 
 ![](docs/assets/xj.png)
 
@@ -490,4 +490,45 @@ public class Student implements Comparable<Student> {
 map.forEach((k,v)->{
     System.sout.println(k + "-->" + v );
 });
+```
+
+## Stream
+
+- Jdk8开始新增的API，用于操作集合或者数组中的数据。
+
+![](docs/assets/st1.png)
+
+![](docs/assets/st2.png)
+
+![](docs/assets/st3.png)
+
+```java
+1、获取stream流
+//1、如何获取List集合的Stream流？
+        List<String> names = new ArrayList<>();                
+        Stream<String> stream = names.stream();
+//2、如何获取Set集合的Stream流？
+        Set<String> set = new HashSet<>();
+        Stream<String> stream1 = set.stream();
+//3、如何获取Map集合的Stream流？
+        Set<Map.Entry<String, Double>> entries = map.entrySet();
+        Stream<Map.Entry<String, Double>> kvs = entries.stream();
+//4、如何获取数组的stream流？
+        Stream<String> s1 = Arrays.stream(names2);
+2、Stream流常见的中间方法
+ - 中间方法: 指的是调用完成后会返回新的Stream流，可以继续使用(支持链式编程)。
+//需求2：找出年龄大于等于23，且年龄小于等于30岁的学生，并按照年龄降序输出。
+        students.stream().filter(s -> s.getAge() >= 23 && s.getAge() <= 30)
+                .sorted((o1, o2) -> o2.getAge() - o1.getAge())   // 此时的 s 过滤完 直接sorted它不知道要怎么排序，在Students重写compareTo ，或者在sorted重写
+                .forEach(s -> System.out.println(s));
+//需求3：取出身高最高的前3名学生，并输出。
+        students.stream().sorted(((o1, o2) -> Double.compare(o1.getHeight(), o2.getHeight())))
+                .limit(3).forEach(s -> System.out.println(s));
+//需求5：找出身高超过168的学生叫什么名字，要求去除重复的名字，再输出。
+        students.stream().filter(s -> s.getHeight() > 168)
+                .map(s -> s.getName()) // 把过滤好的映射成为他的名字
+                .distinct()  // 去重 ,自定义类型的对象（希望内容一样就认为重复，需要重写hashCode，equals）
+                .forEach(s -> System.out.println(s));
+3、Stream流常见的
+终结方法
 ```
