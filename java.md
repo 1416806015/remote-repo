@@ -502,6 +502,10 @@ map.forEach((k,v)->{
 
 ![](docs/assets/st3.png)
 
+![](docs/assets/st4.png)
+
+![](docs/assets/st5.png)
+
 ```java
 1、获取stream流
 //1、如何获取List集合的Stream流？
@@ -529,6 +533,31 @@ map.forEach((k,v)->{
                 .map(s -> s.getName()) // 把过滤好的映射成为他的名字
                 .distinct()  // 去重 ,自定义类型的对象（希望内容一样就认为重复，需要重写hashCode，equals）
                 .forEach(s -> System.out.println(s));
-3、Stream流常见的
-终结方法
+3、Stream流常见的终结方法
 ```
+
+# File
+
+## 创建File类对象
+
+![](docs/assets/fl1.png)
+
+![](docs/assets/fl2.png)
+
+## 遍历文件夹
+
+![](docs/assets/fl3.png)
+
+# IO流
+
+![](docs/assets/io1.png)
+
+## Commons-io
+
+![](docs/assets/io3.png)
+
+# xml
+
+应用场景：经常用来做为系统的配置文件；或者作为一种特殊的数据结构，在网络中进行传输。
+
+![](docs/assets/xml.png)

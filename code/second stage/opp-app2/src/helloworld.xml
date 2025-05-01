@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 注释：以上抬头声明必须放在第一行，必须有 -->
+<!-- 跟标签只能有一个 -->
+<user>
+    <user id="1">
+        <name>张无忌</name>
+        <sex>男</sex>
+        <地址>光明顶</地址>
+        <password>minmin</password>
+    </user>
+    <user id="2">
+        <name>明明</name>
+        <sex>女</sex>
+        <地址>光明顶</地址>
+        <password>wuji</password>
+    </user>
+</user>
