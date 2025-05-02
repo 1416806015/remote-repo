@@ -561,3 +561,79 @@ map.forEach((k,v)->{
 应用场景：经常用来做为系统的配置文件；或者作为一种特殊的数据结构，在网络中进行传输。
 
 ![](docs/assets/xml.png)
+
+# Logback （日志）
+
+![](docs/assets/lg.png)
+
+```java
+使用Logback日志框架，记录系统的运行信息
+// 创建一个Logger日志对象
+    public static final Logger LOGGER = LoggerFactory.getLogger("LogBackTest");
+// 记录日志的执行流程
+LOGGER.info("chu法方法开始执行~~~");
+```
+
+![](docs/assets/lg1.png)
+
+## 日志级别 （升序）
+
+                     **trace**    <     **debug**    <     **info**     <     **warn**    <     **error**
+
+![](docs/assets/lg2.png)
+
+# 多线程
+
+    **java通过java.lang.Thread类的对象来代表线程。**
+
+## 多线程的创建方式
+
+```java
+方法一： 继承Thread类
+   1、定义一个子类MyThread继承线程类java.lang.Thread,重写run()方法
+   2、创建MyThread类的对象
+   3、调用线程对象的start()方法启动线程（启动后还是执行run方法的）
+
+方法二：实现Runnable接口
+    1、定义一个线程任务类MyRunnable实现Runnable接口，重写run()方法
+    2、创建MyRunnable任务对象
+    3、把MyRunnable任务对象交给Thread处理。
+优点：任务类只是实现接口，可以继续继承其他类、实现其他接口，扩展性强。
+缺点：需要多一个Runnable对象。
+
+
+```
+
+### 方法三：实现Callable接口
+
+![](docs/assets/sc1.png)
+
+## Thread 常用方法
+
+![](docs/assets/xc2.png)
+
+## 线程同步
+
+### 1、同步代码块
+
+- 作用：把访问共享资源的核心代码给上锁，以此保证线程安全。
+
+- 原理：每次只允许一个线程加锁后进入，执行完毕后自动解锁，其他线程才可以进来执行。
+
+```java
+synchronized(同步锁){访问共享资源的核心代码}
+锁对象的使用规范：
+    - 建议使用共享资源作为锁对象，对于实例方法建议使用this作为锁对象。
+    - 对于静态方法建议使用字节码（类名.class）对象作为锁对象。
+```
+
+### 2、同步方法
+
+- 作用：把访问共享资源的核心方法给上锁，以此保证线程安全。
+
+- 原理：每次只能一个线程进入，执行完毕以后自动解锁，其他线程才可以进来执行。
+
+```java
+修饰符 synchronized 返回值类型  方法名称(形参列表){ 操作共享资源的代码 }
+
+```
