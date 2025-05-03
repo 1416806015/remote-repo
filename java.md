@@ -635,5 +635,66 @@ synchronized(同步锁){访问共享资源的核心代码}
 
 ```java
 修饰符 synchronized 返回值类型  方法名称(形参列表){ 操作共享资源的代码 }
+```
+
+### 3、Lock锁
+
+Lock是接口，不能直接实例化，可以采用它的实现类ReentrantLock来构建Lock锁对象。
+
+```java
+private final Lock lk = new ReentrantLock();
+lk.lock();  // 加锁
+lk.unlock();  // 解锁
+```
+
+## 线程池
+
+![](docs/assets/xc3.png)
+
+![](docs/assets/xc4.png)
+
+![](docs/assets/xc5.png)
+
+# 网络通信
+
+![](docs/assets/tx1.png)
+
+## UDP
+
+```java
+ ---------------------------------- UDP --------------------------------
+Client(客服端)：
+//1、创建客户端对象（发韭菜出去的人）
+DatagramSocket socket = new DatagramSocket();
+//2、创建数据包对象封装要发出去的数据（创建一个韭菜盘子）
+     参数一：封装要发出去的数据。
+     参数二：发送出去的数据大小（字节个数）
+     参数三：服务端的IP地址（找到服务端主机）
+     参数四：服务端程序的端口。
+DatagramPacket packet = new DatagramPacket(bytes, bytes.length
+                    ,InetAddress.getLocalHost(), 6666);
+//3、开始正式发送这个数据包的数据出去了
+            socket.send(packet);
+ Server（服务端）：
+//1、创建一个服务端对象（创建一个接非菜的人）注册端口
+        DatagramSocket socket = new DatagramSocket(6666);
+//2、创建一个数据包对象，用于接收数据的（创建一个非菜盘子）
+        byte[] buffer = new byte[1024 * 64]; // 64KB.
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length); 
+//3、开始正式使用数据包来接收客户端发来的数据
+            socket.receive(packet);
+```
+
+## TCP
+
+![](docs/assets/tx2.png)
+
+```java
+---------------------------------TCP-------------------------------------
+服务端实现步骤
+①创建ServerSocket对象，注册服务端端口。
+②调用ServerSocket对象的accept()方法，等待客户端的连接，并得到Socket管道对象。
+③通过Socket对象调用getlnputStream()方法得到字节输入流、完成数据的接收。
+④释放资源：关闭socket管道
 
 ```
