@@ -698,3 +698,55 @@ DatagramPacket packet = new DatagramPacket(bytes, bytes.length
 ④释放资源：关闭socket管道
 
 ```
+
+# 单元测试
+
+## Junit 单元测试
+
+具体步骤：
+
+- 将Junit框架的jar包导入到项目中（注意：IDEA集成了Junit框架，不需要我们自己手工导入了）
+
+- 为需要测试的业务类，定义对应的测试类，并为每个业务方法，编写对应的测试方法（必须：公共、无参、无返回值）
+
+- 测试方法上必须声明@Test注解，然后在测试方法中，编写代码调用被测试的业务方法进行测试；
+
+- 开始测试：选中测试方法，右键选择“JUnit运行”，如果测试通过则是绿色；如果测试失败，则是红色
+
+# 反射
+
+**作用：** 
+
+- 可以得到一个类的全部成分然后操作
+
+- 可以破坏封装性
+
+- 【核心】：做java的框架，基于反射设计出一些通用功能
+
+## 1、获取Class对象
+
+获取Class对象的三种方式  
+
+* Class c1 =类名.class  
+* 调用Class提供方法:public static Class forName(String package);  
+* Object提供的方法: public Class getClass(); Class c3 =对象.getclass()
+
+## 2、获取类的构造器
+
+![](docs/assets/fs1.png)
+
+## 3、获取类的成员变量
+
+![](docs/assets/fs3.png)
+
+## 4、获取类的成员方法
+
+![](docs/assets/fs5.png)
+
+# 自定义注解
+
+```java
+public @interface 注解名称{
+    public 属性类型 属性名() default 默认值;
+}
+```
