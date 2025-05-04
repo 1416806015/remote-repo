@@ -600,8 +600,6 @@ LOGGER.info("chu法方法开始执行~~~");
     3、把MyRunnable任务对象交给Thread处理。
 优点：任务类只是实现接口，可以继续继承其他类、实现其他接口，扩展性强。
 缺点：需要多一个Runnable对象。
-
-
 ```
 
 ### 方法三：实现Callable接口
@@ -696,7 +694,6 @@ DatagramPacket packet = new DatagramPacket(bytes, bytes.length
 ②调用ServerSocket对象的accept()方法，等待客户端的连接，并得到Socket管道对象。
 ③通过Socket对象调用getlnputStream()方法得到字节输入流、完成数据的接收。
 ④释放资源：关闭socket管道
-
 ```
 
 # 单元测试
@@ -750,3 +747,11 @@ public @interface 注解名称{
     public 属性类型 属性名() default 默认值;
 }
 ```
+
+## 元注解
+
+![](docs/assets/zj.png)
+
+## 代理
+
+![](docs/assets/dl1.png)
