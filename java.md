@@ -755,3 +755,48 @@ public @interface 注解名称{
 ## 代理
 
 ![](docs/assets/dl1.png)
+
+# 获取类路径下的`emp.xml`文件的绝对路径。
+
+```java
+String file = this.getClass().getClassLoader().getResource("emp.xml").getFile();
+```
+
+1. `this.getClass()`  
+   获取当前对象的Class对象
+
+2. `.getClassLoader()`  
+   获取加载这个类的类加载器(ClassLoader)
+
+3. `.getResource("emp.xml")`  
+   通过类加载器查找资源文件，查找规则：
+   
+   - 从classpath根目录查找
+   - 对于Maven项目，会从`src/main/resources`或`src/test/resources`目录查找
+   - 返回一个URL对象
+
+4. `.getFile()`  
+   从URL对象中提取文件路径（返回String形式的路径）
+
+注意事项：
+
+1. 文件必须存在于classpath中，否则会抛出NullPointerException
+2. 路径不需要以`/`开头，因为`getResource()`默认从classpath根目录查找
+3. 在IDE中运行时路径可能包含特殊编码（如空格会被转义为%20）
+4. 如果打包成JAR文件，这个方法可能无法直接获取文件内容（需要使用`getResourceAsStream()`)
+
+更健壮的写法应该检查null：
+
+```java
+URL resource = this.getClass().getClassLoader().getResource("emp.xml");
+if(resource != null) {
+    String filePath = resource.getFile();
+    // 使用文件路径
+}
+```
+
+或者直接获取输入流：
+
+```java
+
+```
