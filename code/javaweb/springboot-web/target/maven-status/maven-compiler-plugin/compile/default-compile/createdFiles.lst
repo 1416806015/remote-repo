@@ -1,0 +1,13 @@
+com\example\springbootweb\pojo\Result.class
+com\example\springbootweb\SpringbootWebApplication.class
+com\example\springbootweb\utils\XmlParserUtils.class
+com\example\springbootweb\pojo\Address.class
+com\example\springbootweb\controller\RequestController.class
+com\example\springbootweb\service\EmpService.class
+com\example\springbootweb\dao\impl\EmpDaoA.class
+com\example\springbootweb\pojo\User.class
+com\example\springbootweb\controller\ControllerTest.class
+com\example\springbootweb\service\impl\EmpServiceA.class
+com\example\springbootweb\controller\EmpController.class
+com\example\springbootweb\dao\EmpDao.class
+com\example\springbootweb\pojo\Emp.class
